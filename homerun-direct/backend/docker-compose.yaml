@@ -1,0 +1,66 @@
+services:
+  web:
+    build: .
+    container_name: homerun-drf-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command: >
+      sh -c "python manage.py migrate &&
+             if [ \"$DEBUG\" = \"True\" ]; then python manage.py runserver 0.0.0.0:8000; else gunicorn homerun.wsgi:application --bind 0.0.0.0:8000; fi"
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - "${PG_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    profiles:
+      - db_enabled  # This service is included only if db_enabled profile is used
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+    container_name: elasticsearch
+    env_file:
+      - .env
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ELASTIC_PASSWORD=${ES_PASSWORD}
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    profiles:
+      - es_enabled  # This service is included only if es_enabled profile is used
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    restart: always
+    env_file:
+      - .env
+    command: >
+      sh -c "if [ -n \"$REDIS_PASSWORD\" ]; then redis-server --requirepass $REDIS_PASSWORD; else redis-server; fi"
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    profiles:
+      - redis_enabled  # This service is included only if redis_enabled profile is used
+
+volumes:
+  postgres_data:
+  es_data:
+  redis_data:

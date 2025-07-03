@@ -1,0 +1,476 @@
+{
+	"info": {
+		"_postman_id": "629477ce-26b6-4db3-94b5-1d098a170df9",
+		"name": "rbac Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3890922"
+	},
+	"item": [
+		{
+			"name": "New Organization",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/organization/?default=1",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"organization",
+						""
+					],
+					"query": [
+						{
+							"key": "default",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"nishu.saxena@gmail.com\",\n    \"password\":\"nishu\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/auth/login/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Organization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"street_address\": \"AAAq\",\n    \"apt_suite\": \"AAAq\",\n    \"city\": \"AAA\",\n    \"state_province\": \"AAA\",\n    \"postal_code\": \"330009\",\n    \"country\": \"AAA\",\n    \"latitude\": \"11.000000000\",\n    \"longitude\": \"11.000000000\",\n    \"organization_name\": \"Somssss\",\n    \"terms_agreement\": true,\n    \"is_organization_created\": true,\n    \"is_payment_done\": false,\n    \"stripe_subscription_id\": \"\",\n    \"organization_type\": 1,\n    \"language\": 18,\n    \"currency\": 21,\n    \"company_type\": 1,\n    \"payment_processor\": 2,\n    \"subscription_plan\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/organization/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"organization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/organization/?search=AAA",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"organization",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "AAA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Checkout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"subscription_plan_id\":\"1\",\n    \"organization_id\":32\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/organization/create-checkout-session/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"organization",
+						"create-checkout-session",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payment Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/session/cs_test_a1opDAixaM5tFyzaJ4qH5jlU113h1QSNTwNGUJhRMPfwodeCk8SdZMQuhL",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"session",
+						"cs_test_a1opDAixaM5tFyzaJ4qH5jlU113h1QSNTwNGUJhRMPfwodeCk8SdZMQuhL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/auth/logout/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"auth",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Google login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"provider\": \"google\",\n    \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMTkzZDQ2NDdhYjRhMzU4NWFhOWIyYjNiNDg0YTg3YWE2OGJiNDIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDc5Mzc4MjQ1MDMyLWJ1dmNvNGI4dTg2NThiajltMjJhcXV1M2plcWZuMHZrLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA3OTM3ODI0NTAzMi1idXZjbzRiOHU4NjU4Ymo5bTIyYXF1dTNqZXFmbjB2ay5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMTQxMTg1MzUwOTgyNzMzNTM5MSIsImVtYWlsIjoia29rc2VtYW5pc2hAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJYXzlLTTI3MVNMa3pwTHhMS3RiYml3IiwibmFtZSI6Ik0g4oCcRGV2ZWxvcGVy4oCdIEsiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS2RiN1hpdHptNXVmcURYanE5TVdLMkFfUTA3ZjVGSUo0TWNUYjZEQWRoa1pwdU55VmU9czk2LWMiLCJnaXZlbl9uYW1lIjoiTSIsImZhbWlseV9uYW1lIjoiSyIsImlhdCI6MTc0Mjc5OTU5NCwiZXhwIjoxNzQyODAzMTk0fQ.Ye26Br0oVUUJtppBGweWr-zTzKP6GsPfJQgMu9FNtefkatRRMY09_40m0zNetJjOAwEZAf9PwCcceI5w9FViwObrqt7F-fIqIHvO1v6geXy5FGpaXy1YQlDQRNVWcaEc5cIIJc8aByCnTK3GlqCP_EUPpBoYtIRaQTTK6YZTG9VAyWQbJyT1noPiyIaFXVUmmo18rzfCeTR6EysMvI_elDyxazPik1nuapmn9vsWq6OJRTYmC3jvCVs7zIdUmVnXCitRTeScE-S9EWBSYtMLy-ZvTk3Apw3_QW4yw1DCnE1l4yAenYQPJlBOLBKrT0-0Do8Dhf7txxVRePHAOKLDww\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/api/google-auth/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"api",
+						"google-auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"nishu.saxena@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/auth/forgot-password/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"auth",
+						"forgot-password",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"new_password\": \"mkmk@12345\",\n    \"uid\": \"MQ\",\n    \"token\": \"cn5x15-8c6ca4521ab5fc27bf234b304f45e6f2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_HOST}}/auth/reset-password/",
+					"host": [
+						"{{SERVER_HOST}}"
+					],
+					"path": [
+						"auth",
+						"reset-password",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
